@@ -7,20 +7,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.izamim.bazar.model.User;
-import com.izamim.bazar.repositories.UserRepository;
+import com.izamim.bazar.model.Product;
+import com.izamim.bazar.service.ProductService;
 
 @RestController
-@RequestMapping(value = "/users")
-public class ControllerUser {
-
-	@Autowired
-	private UserRepository repository;
+@RequestMapping(value = "/product")
+public class ProductController {
 	
+	@Autowired
+	private ProductService service;
 	
 	@PostMapping
-	public ResponseEntity<User> insert (@RequestBody User user){
-		repository.save(user);
-		return ResponseEntity.ok().body(user);
+	public ResponseEntity<Product> insert(@RequestBody Product p){
+		service.insert(p);
+		return ResponseEntity.ok().body(p);
+		
 	}
+
 }
