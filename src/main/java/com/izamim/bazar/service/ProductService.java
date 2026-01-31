@@ -33,5 +33,16 @@ public class ProductService {
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}
+	
+	public Product update(Long id, Product p) {
+		Product po = repository.getReferenceById(id);
+		po.setName(p.getName());
+		po.setDescription(p.getDescription());
+		po.setImgUrl(p.getImgUrl());
+		po.setPrice(p.getPrice());
+		repository.save(po);
+		
+		return po;
+	}
 
 }
