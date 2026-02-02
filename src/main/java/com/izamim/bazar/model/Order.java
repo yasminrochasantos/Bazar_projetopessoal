@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,14 +26,20 @@ public class Order implements Serializable{
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
 	
+	@ManyToOne
+	@JoinColumn(name = "client_id")
+	private User client_id;
+	
 	public Order() {
 		
 	}
 
-	public Order(Long id, Instant moment) {
+	public Order(Long id, Instant moment, User client_id) {
 		super();
 		this.id = id;
 		this.moment = moment;
+		this.client_id = client_id;
+
 	}
 
 	public Long getId() {
@@ -48,6 +56,14 @@ public class Order implements Serializable{
 
 	public void setMoment(Instant moment) {
 		this.moment = moment;
+	}
+	
+	public User getClient() {
+		return client_id;
+	}
+
+	public void setClient(User client_id) {
+		this.client_id = client_id;
 	}
 
 	@Override

@@ -1,12 +1,17 @@
 package com.izamim.bazar.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +26,10 @@ public class User implements Serializable {
 	private String email;
 	private String phone;
 	private String cpf;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "client_id")
+	private List<Order> oders = new ArrayList<>();
 	
 	public User() {
 		
@@ -74,6 +83,11 @@ public class User implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	
+	public List<Order> getOders() {
+		return oders;
+	}
+
 
 	@Override
 	public int hashCode() {
