@@ -2,6 +2,7 @@ package com.izamim.bazar.model;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.izamim.bazar.model.orderPk.OrderItemPk;
 
 import jakarta.persistence.EmbeddedId;
@@ -22,23 +23,33 @@ public class OrderItem {
 		
 	}
 
-	public OrderItem(OrderItemPk id, Integer quantity, Double price) {
+	public OrderItem(Order order, Product product, Integer quantity, Double price) {
 		super();
-		this.id = id;
+		id.setOrder(order);
+		id.setProduct(product);		
 		this.quantity = quantity;
 		this.price = price;
 	}
 
-	public OrderItemPk getId() {
-		return id;
+	@JsonIgnore
+	public Order getOrder() {
+		return id.getOrder();
 	}
 
-	public void setId(OrderItemPk id) {
-		this.id = id;
+	public void setOrder(Order order) {
+		 id.setOrder(order);
 	}
 
 	public Integer getQuantity() {
 		return quantity;
+	}
+	
+	public Product getProduct() {
+		return id.getProduct();
+	}
+
+	public void setProduct(Product product) {
+		 id.setProduct(product);
 	}
 
 	public void setQuantity(Integer quantity) {
